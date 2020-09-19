@@ -20,14 +20,31 @@ class SongsController < ApplicationController
             @song.released = false
         end
         @song.save
-        byebug
-        redirect_to song_path(@song)
+        if @song.valid?
+            redirect_to song_path(@song)
+        else
+            flash[:errors] = @song.errors.full_messages
+            redirect_to new_song_path
+        end
+        #byebug
+        
     end
 
     def update
         #byebug
         @song.update(song_params)
-        redirect_to song_path(@song)
+        if params[:song][:released] == "1"
+            @song.released = true
+        else
+            @song.released = false
+        end
+        @song.save
+        if @song.valid?
+            redirect_to song_path(@song)
+        else
+            flash[:errors] = @song.errors.full_messages
+            redirect_to edit_song_path
+        end
     end
 
     def edit
