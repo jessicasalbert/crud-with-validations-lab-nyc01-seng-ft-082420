@@ -24,7 +24,8 @@ class SongsController < ApplicationController
             redirect_to song_path(@song)
         else
             flash[:errors] = @song.errors.full_messages
-            redirect_to new_song_path
+            render :new
+            # redirect_to new_song_path
         end
         #byebug
         
@@ -43,7 +44,8 @@ class SongsController < ApplicationController
             redirect_to song_path(@song)
         else
             flash[:errors] = @song.errors.full_messages
-            redirect_to edit_song_path
+            render :edit
+            # redirect_to edit_song_path
         end
     end
 
